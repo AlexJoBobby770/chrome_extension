@@ -1,70 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">    
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Malayalam Typing Judge Extension Generator</title>
+    
+    <!-- Include JSZip library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-    <title>Malayalam Type Judge</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
-        <h1>Malayalam Type Judge</h1>
-        <br>
-        <p>Test your typing skills in Malayalam!</p>
-        <br>
-        <div class="form-group" id="thresholdSection">
+        <h1>🎯 Malayalam Typing Judge Extension Generator</h1>
+        
+        <!-- Demo Section -->
+        <div class="form-group demo-section">
+            <h3>🎮 Try Demo First!</h3>
+            <p>Download a working demo extension with sample beep sounds to test how it works on YouTube, Gmail, WhatsApp Web, Discord, and all other websites!</p>
+            <button onclick="createDemoExtension()" id="demoBtn" class="demo-button">
+                🎯 Download Demo Extension (With Sample Audio)
+            </button>
+            <small>Try the demo first to see how it detects typing everywhere, then create your custom Malayalam version below!</small>
+        </div>
+        
+        <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.2);">
+        
+        <!-- Custom Extension Section -->
+        <div class="form-group">
+            <h3>🎵 Create Your Custom Malayalam Version</h3>
+            
+            <!-- Threshold Input Section -->
             <label>⚡ Typing Speed Threshold (Characters Per Second):</label>
             <input type="number" id="threshold" value="2" min="0.5" max="10" step="0.1">
             <div class="speed-info">
-                “Typing feedback is triggered based on speed (Characters Per Second):<br><br> 
-                - < 2 CPS: Slow - corrective feedback<br>
-                - 2-4 CPS: Moderate - neutral response<br>
-                - > 4 CPS: Fast - praise delivered”
+                <strong>Speed Guide:</strong><br>
+                • Below 2 CPS = Slow (gets insults)<br>
+                • 2-4 CPS = Medium (neutral sounds)<br>
+                • Above 4 CPS = Fast (gets praise)
             </div>
         </div>
-
-        <br>
-
-        <div class="form-group" id="audioUploadSection">
-            <label>🎵 Select and Upload Your Malayalam Audio Files Here</label>
-            <br>
-            <label>🐌 Slow Speed Audio (Light-Hearted Responses)</label>
-            <input type="file" id="audioFileSlow" accept=".mp3,.wav,.ogg">
-            <br>
-            <label>⚖️ Average Typing Pace - Balanced Feedback</label>
-            <input type="file" id="audioFileMedium" accept=".mp3,.wav,.ogg">
-            <br>
-            <label>🚀 Fast Typing Detected - Praise Sounds</label>
-            <input type="file" id="audioFileFast" accept=".mp3,.wav,.ogg">
-        </div>
-
-        <br>
-        <div style="display: flex; justify-content: center;">
-            <button onclick="generateExtension()" id="generateBtn">
-                Package Chrome Extension
-            </button>
-        </div>
-        <br>
-
+        
+        <!-- Audio Upload Section -->
         <div class="form-group">
-            <h3>📝 How to Install:</h3>
+            <label>🎵 Upload Your Malayalam Audio Files:</label>
+            
+            <label>🐌 Slow Typing Audio (insults):</label>
+            <input type="file" id="audioFileSlow" accept=".mp3">
+            
+            <label>⚖️ Medium Typing Audio (neutral):</label>
+            <input type="file" id="audioFileMedium" accept=".mp3">
+            
+            <label>🚀 Fast Typing Audio (praise):</label>
+            <input type="file" id="audioFileFast" accept=".mp3">
+        </div>
+        
+        <!-- Generate Button -->
+        <button onclick="generateExtension()" id="generateBtn">
+            🚀 Generate Custom Malayalam Extension
+        </button>
+        
+        <!-- Status Messages -->
+        <div id="status"></div>
+        
+        <!-- Installation Instructions -->
+        <div class="form-group">
+            <h3>📝 How to Install Extensions:</h3>
             <ol>
-                <li>Download the generated ZIP file</li>
-                <li>Unzip it to a folder</li>
+                <li>Download the ZIP file (demo or custom)</li>
+                <li>Unzip it to a folder on your computer</li>
                 <li>Open Chrome → go to <code>chrome://extensions/</code></li>
                 <li>Turn on "Developer mode" (top right toggle)</li>
                 <li>Click "Load unpacked" and select your unzipped folder</li>
-                <li>Start typing anywhere and get judged in Malayalam! 🎭</li>
+                <li>Start typing anywhere and get judged! 🎭</li>
             </ol>
+            
+            <h4>🌐 Works On All These Websites:</h4>
+            <ul>
+                <li>✅ YouTube comments</li>
+                <li>✅ Gmail compose</li>
+                <li>✅ WhatsApp Web messages</li>
+                <li>✅ Discord chat</li>
+                <li>✅ Twitter/X posts</li>
+                <li>✅ Facebook posts/comments</li>
+                <li>✅ Instagram comments</li>
+                <li>✅ Reddit posts/comments</li>
+                <li>✅ Any text input field!</li>
+            </ul>
         </div>
-
     </div>
+
+    <!-- Include all JavaScript files in order -->
     <script src="scriptTemplate.js"></script>
     <script src="zipCreator.js"></script>
     <script src="script.js"></script>
+    
+    <script>
+        // Demo extension creation function
+        async function createDemoExtension() {
+            console.log('Creating demo extension with sample audio...');
+            
+            showLoading();
+            document.getElementById('demoBtn').disabled = true;
+            document.getElementById('demoBtn').textContent = '🔄 Creating Demo...';
+            
+            try {
+                const zip = new JSZip();
+                
+                // Create manifest for demo
+                const demoManifest = {
+                    "manifest_version": 3,
+                    "name": "Malayalam Typing Judge - DEMO",
+                    "version": "1.0",
+                    "description": "Demo version with sample beep sounds - Works on ALL websites!",
+                    "permissions": [],
+                    "content_scripts": [
+                        {
+                            "matches": ["<all_urls>"],
+                            "js": ["script.js"]
+                        }
+                    ],
+                    "web_accessible_resources": [
+                        {
+                            "resources": ["audio/*.mp3"],
+                            "matches": ["<all_urls>"]
+                        }
+                    ]
+                };
+                
+                // Create demo script with 2 CPS threshold
+                const demoScript = createScriptContent(2);
+                
+                // Add files to ZIP
+                zip.file("manifest.json", JSON.stringify(demoManifest, null, 2));
+                zip.file("script.js", demoScript);
+                
+                // Create audio folder with placeholder files
+                const audioFolder = zip.folder("audio");
+                
+                // Load real demo audio files and add to ZIP
+                const slowAudio = await fetch('audio/slow.mp3').then(res => res.arrayBuffer());
+                const mediumAudio = await fetch('audio/medium.mp3').then(res => res.arrayBuffer());
+                const fastAudio = await fetch('audio/fast.mp3').then(res => res.arrayBuffer());
+
+                audioFolder.file("slow.mp3", slowAudio);
+                audioFolder.file("medium.mp3", mediumAudio);
+                audioFolder.file("fast.mp3", fastAudio);
+
+                
+                // Add README file
+                const readmeContent = `# Malayalam Typing Judge - DEMO Extension
+
+## What This Does:
+- Monitors your typing speed on ALL websites (YouTube, Gmail, WhatsApp Web, etc.)
+- Shows notifications based on speed (audio files are placeholders in this demo)
+- Detects typing in ANY editable field across the web!
+
+## How to Install:
+1. Unzip this folder
+2. Open Chrome → chrome://extensions/
+3. Turn on "Developer mode" (top right)
+4. Click "Load unpacked" → select this folder
+5. Start typing anywhere and watch for notifications!
+
+## Try It On:
+- YouTube comments
+- Gmail compose  
+- WhatsApp Web
+- Twitter/X posts
+- Discord messages
+- Any text field!
+
+## Want Real Malayalam Audio?
+Use our generator website to create your own version with actual Malayalam audio files!
+
+## Current Threshold: 2 Characters Per Second
+- Type slower than 2 CPS = "Slow" notification
+- Type faster than 4 CPS = "Fast" notification
+
+Note: This demo shows notifications only. Upload your own Malayalam audio files for the full experience!
+
+Happy typing! 🎯
+`;
+                
+                zip.file("README.md", readmeContent);
+                
+                // Generate and download
+                const content = await zip.generateAsync({type: "blob"});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'malayalam-typing-judge-DEMO.zip';
+                link.click();
+                
+                showSuccess('Demo extension created! Install it to see how it detects typing everywhere. Then create your custom version with Malayalam audio!');
+                
+            } catch (error) {
+                console.error('Error creating demo:', error);
+                showError('Failed to create demo extension: ' + error.message);
+            } finally {
+                hideLoading();
+                document.getElementById('demoBtn').disabled = false;
+                document.getElementById('demoBtn').textContent = '🎯 Download Demo Extension (With Sample Audio)';
+            }
+        }
+    </script>
 </body>
 </html>
