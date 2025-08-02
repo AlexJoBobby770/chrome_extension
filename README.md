@@ -6,9 +6,9 @@
 ### Team Name: Type Chaos Creators
 
 ### Team Members
-- Team Lead: [Your Name] - [Your College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: [Alex Jo Bobby] - [Albertian Institute of Science and technology]
+- Member 2: [Harigovind kr] - [Albertian Institute of Science and technology]
+
 
 ### Project Description
 A Chrome extension generator that creates personalized typing speed judges with Malayalam audio commentary. Monitor your typing across ALL websites and get real-time feedback based on your speed - from encouraging praise to hilarious roasts!
@@ -40,11 +40,7 @@ For Software:
 #### Installation & Setup
 ```bash
 # Clone the repository
-git clone [your-repo-url]
-
-# Navigate to project directory
-cd malayalam-typing-judge
-
+git clone [https://github.com/AlexJoBobby770/chrome_extension.git]
 # Open index.html in any modern browser
 # No build process required - pure client-side magic!
 ```
@@ -71,7 +67,6 @@ cd malayalam-typing-judge
 ### Audio Requirements
 #### MP3 Format Only
 - ✅ **Supported:** MP3 files only (.mp3 extension)
-- ❌ **Not Supported:** WAV, OGG, or other audio formats
 - 📎 **File Size:** Maximum 5MB per MP3 file
 - ⏱️ **Duration:** Recommended 2-5 seconds each for best experience
 - 🎵 **Quality:** Standard MP3 bitrates (128kbps-320kbps) work perfectly
@@ -94,32 +89,7 @@ cd malayalam-typing-judge
 ![Multi-Website Support](screenshots/multi-website.png)
 *Extension working with MP3 audio across Gmail, Discord, Twitter, and WhatsApp Web*
 
-#### Architecture Diagram
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Web-Based Generator                      │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │
-│  │ HTML/CSS UI │  │ MP3 Upload  │  │ Extension Generator │ │
-│  │   Interface │──│   Handler   │──│      (JSZip)        │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  Generated Chrome Extension                 │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │
-│  │Manifest.json│  │Content Script│  │   MP3 Audio Folder  │ │
-│  │(MP3 Resources)│  │(Typing Monitor)│  │(slow/med/fast.mp3) │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Real-Time MP3 Playback                   │
-│        Works on ALL websites simultaneously:               │
-│    YouTube │ Gmail │ Discord │ Twitter │ WhatsApp Web      │
-└─────────────────────────────────────────────────────────────┘
-```
+
 
 ### Key Features & Technical Highlights
 
