@@ -180,40 +180,7 @@
                 audioFolder.file("fast.mp3", fastAudio);
 
                 
-                // Add README file
-                const readmeContent = `# Malayalam Typing Judge - DEMO Extension
-
-## What This Does:
-- Monitors your typing speed on ALL websites (YouTube, Gmail, WhatsApp Web, etc.)
-- Shows notifications based on speed (audio files are placeholders in this demo)
-- Detects typing in ANY editable field across the web!
-
-## How to Install:
-1. Unzip this folder
-2. Open Chrome → chrome://extensions/
-3. Turn on "Developer mode" (top right)
-4. Click "Load unpacked" → select this folder
-5. Start typing anywhere and watch for notifications!
-
-## Try It On:
-- YouTube comments
-- Gmail compose  
-- WhatsApp Web
-- Twitter/X posts
-- Discord messages
-- Any text field!
-
-## Want Real Malayalam Audio?
-Use our generator website to create your own version with actual Malayalam audio files!
-
-## Current Threshold: 2 Characters Per Second
-- Type slower than 2 CPS = "Slow" notification
-- Type faster than 4 CPS = "Fast" notification
-
-Note: This demo shows notifications only. Upload your own Malayalam audio files for the full experience!
-
-Happy typing! 🎯
-`;
+                
                 
                 zip.file("README.md", readmeContent);
                 
