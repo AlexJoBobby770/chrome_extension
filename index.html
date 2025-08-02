@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <title>Malayalam Type Judge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Malayalam Type Judge</h1>
+        <br>
+        <p>Test your typing skills in Malayalam!</p>
+        <br>
+        <div class="form-group" id="thresholdSection">
+            <label>⚡ Typing Speed Threshold (Characters Per Second):</label>
+            <input type="number" id="threshold" value="2" min="0.5" max="10" step="0.1">
+            <div class="speed-info">
+                “Typing feedback is triggered based on speed (Characters Per Second):<br>
+                - < 2 CPS: Slow - corrective feedback<br>
+                - 2-4 CPS: Moderate - neutral response<br>
+                - > 4 CPS: Fast - praise delivered”
+            </div>
+        </div>
+
+        <br>
+
+        <div class="form-group" id="audioUploadSection">
+            <label>🎵 Select and Upload Your Malayalam Audio Files Here</label>
+            <br>
+            <label>🐌 Slow Speed Audio (Light-Hearted Responses)</label>
+            <input type="file" id="audioFileSlow" accept=".mp3,.wav,.ogg">
+            <br>
+            <label>⚖️ Average Typing Pace - Balanced Feedback</label>
+            <input type="file" id="audioFileMedium" accept=".mp3,.wav,.ogg">
+            <br>
+            <label>🚀 Fast Typing Detected - Praise Sounds</label>
+            <input type="file" id="audioFileFast" accept=".mp3,.wav,.ogg">
+        </div>
+
+        <br>
+
+        <button onclick="generateExtension()" id="generateBtn">
+            Package Chrome Extension
+        </button>
+
+        <br>
+
+        <div class="form-group">
+            <h3>📝 How to Install:</h3>
+            <ol>
+                <li>Download the generated ZIP file</li>
+                <li>Unzip it to a folder</li>
+                <li>Open Chrome → go to <code>chrome://extensions/</code></li>
+                <li>Turn on "Developer mode" (top right toggle)</li>
+                <li>Click "Load unpacked" and select your unzipped folder</li>
+                <li>Start typing anywhere and get judged in Malayalam! 🎭</li>
+            </ol>
+        </div>
+
+    </div>
+    <script src="scriptTemplate.js"></script>
+    <script src="zipCreator.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
