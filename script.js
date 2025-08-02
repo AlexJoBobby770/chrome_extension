@@ -89,7 +89,8 @@ function setupFileValidation() {
 }
 
 function validateAudioFile(file, inputElement) {
-    const validTypes = ['audio/mp3'];
+    const validTypes = ['audio/mpeg', 'audio/wav'];
+
     const maxSize = 5 * 1024 * 1024; 
     
     if (!validTypes.includes(file.type)) {
