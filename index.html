@@ -14,7 +14,6 @@
 <body>
     <div class="container">
         <h1>🎯 Malayalam Typing Judge Extension Generator</h1>
-        <p>Create a Chrome extension that judges your typing speed in real-time with Malayalam audio commentary!</p>
         
         <!-- Demo Section -->
         <div class="form-group demo-section">
@@ -26,14 +25,14 @@
             <small>Try the demo first to see how it detects typing everywhere, then create your custom Malayalam version below!</small>
         </div>
         
-        <hr style="margin: 30px 0; border: 1px solid rgba(0,0,0,0.1);">
+        <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.2);">
         
         <!-- Custom Extension Section -->
         <div class="form-group">
             <h3>🎵 Create Your Custom Malayalam Version</h3>
             
             <!-- Threshold Input Section -->
-            <label for="threshold">⚡ Typing Speed Threshold (Characters Per Second):</label>
+            <label>⚡ Typing Speed Threshold (Characters Per Second):</label>
             <input type="number" id="threshold" value="2" min="0.5" max="10" step="0.1">
             <div class="speed-info">
                 <strong>Speed Guide:</strong><br>
@@ -42,18 +41,19 @@
                 • Above 4 CPS = Fast (gets praise)
             </div>
         </div>
-
-        <div class="form-group" id="audioUploadSection">
+        
+        <!-- Audio Upload Section -->
+        <div class="form-group">
             <label>🎵 Upload Your Malayalam Audio Files:</label>
             
-            <label for="audioFileSlow">🐌 Slow Typing Audio (insults):</label>
-            <input type="file" id="audioFileSlow" accept=".mp3,.wav,.ogg">
+            <label>🐌 Slow Typing Audio (insults):</label>
+            <input type="file" id="audioFileSlow" accept=".mp3">
             
-            <label for="audioFileMedium">⚖️ Medium Typing Audio (neutral):</label>
-            <input type="file" id="audioFileMedium" accept=".mp3,.wav,.ogg">
+            <label>⚖️ Medium Typing Audio (neutral):</label>
+            <input type="file" id="audioFileMedium" accept=".mp3">
             
-            <label for="audioFileFast">🚀 Fast Typing Audio (praise):</label>
-            <input type="file" id="audioFileFast" accept=".mp3,.wav,.ogg">
+            <label>🚀 Fast Typing Audio (praise):</label>
+            <input type="file" id="audioFileFast" accept=".mp3">
         </div>
         
         <!-- Generate Button -->
@@ -97,43 +97,6 @@
     <script src="script.js"></script>
     
     <script>
-        // Create demo audio files as base64 encoded beep sounds
-        function createDemoAudioFile(frequency, duration) {
-            const sampleRate = 22050;
-            const samples = sampleRate * duration;
-            const buffer = new ArrayBuffer(44 + samples * 2);
-            const view = new DataView(buffer);
-            
-            // WAV header
-            const writeString = (offset, string) => {
-                for (let i = 0; i < string.length; i++) {
-                    view.setUint8(offset + i, string.charCodeAt(i));
-                }
-            };
-            
-            writeString(0, 'RIFF');
-            view.setUint32(4, 36 + samples * 2, true);
-            writeString(8, 'WAVE');
-            writeString(12, 'fmt ');
-            view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true);
-            view.setUint16(22, 1, true);
-            view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * 2, true);
-            view.setUint16(32, 2, true);
-            view.setUint16(34, 16, true);
-            writeString(36, 'data');
-            view.setUint32(40, samples * 2, true);
-            
-            // Generate sine wave
-            for (let i = 0; i < samples; i++) {
-                const sample = Math.sin(2 * Math.PI * frequency * i / sampleRate) * 0.3;
-                view.setInt16(44 + i * 2, sample * 32767, true);
-            }
-            
-            return new Uint8Array(buffer);
-        }
-
         // Demo extension creation function
         async function createDemoExtension() {
             console.log('Creating demo extension with sample audio...');
@@ -160,51 +123,68 @@
                     ],
                     "web_accessible_resources": [
                         {
-                            "resources": ["audio/*.wav"],
+                            "resources": ["audio/*.mp3"],
                             "matches": ["<all_urls>"]
                         }
                     ]
                 };
                 
                 // Create demo script with 2 CPS threshold
-                const demoScript = createScriptContent(2).replace(/\.mp3/g, '.wav');
+                const demoScript = createScriptContent(2);
                 
                 // Add files to ZIP
                 zip.file("manifest.json", JSON.stringify(demoManifest, null, 2));
                 zip.file("script.js", demoScript);
                 
-                // Create audio folder with demo audio files
+                // Create audio folder with placeholder files
                 const audioFolder = zip.folder("audio");
                 
-                // Generate different beep sounds for each speed
-                audioFolder.file("slow.wav", createDemoAudioFile(200, 0.5)); // Low frequency for slow
-                audioFolder.file("medium.wav", createDemoAudioFile(400, 0.3)); // Medium frequency for medium
-                audioFolder.file("fast.wav", createDemoAudioFile(800, 0.2)); // High frequency for fast
+                // Load real demo audio files and add to ZIP
+                const slowAudio = await fetch('audio/slow.mp3').then(res => res.arrayBuffer());
+                const mediumAudio = await fetch('audio/medium.mp3').then(res => res.arrayBuffer());
+                const fastAudio = await fetch('audio/fast.mp3').then(res => res.arrayBuffer());
+
+                audioFolder.file("slow.mp3", slowAudio);
+                audioFolder.file("medium.mp3", mediumAudio);
+                audioFolder.file("fast.mp3", fastAudio);
+
                 
-                // Create README content for demo
-                const demoReadmeContent = `# Malayalam Typing Judge - DEMO Extension
+                // Add README file
+                const readmeContent = `# Malayalam Typing Judge - DEMO Extension
 
-This is a demo version with sample beep sounds to show how the extension works.
+## What This Does:
+- Monitors your typing speed on ALL websites (YouTube, Gmail, WhatsApp Web, etc.)
+- Shows notifications based on speed (audio files are placeholders in this demo)
+- Detects typing in ANY editable field across the web!
 
-## What it does:
-- Monitors your typing speed on ALL websites
-- Plays different beep sounds based on your typing speed:
-  - Slow typing (< 2 CPS): Low beep
-  - Medium typing (2-4 CPS): Medium beep  
-  - Fast typing (> 4 CPS): High beep
+## How to Install:
+1. Unzip this folder
+2. Open Chrome → chrome://extensions/
+3. Turn on "Developer mode" (top right)
+4. Click "Load unpacked" → select this folder
+5. Start typing anywhere and watch for notifications!
 
-## Test it on:
+## Try It On:
 - YouTube comments
-- Gmail compose
-- Discord chat
-- Any text input field!
+- Gmail compose  
+- WhatsApp Web
+- Twitter/X posts
+- Discord messages
+- Any text field!
 
-## Next step:
-Go back to the generator website and create your custom version with Malayalam audio files!
+## Want Real Malayalam Audio?
+Use our generator website to create your own version with actual Malayalam audio files!
 
-Made with ❤️ at TinkerHub Useless Projects`;
+## Current Threshold: 2 Characters Per Second
+- Type slower than 2 CPS = "Slow" notification
+- Type faster than 4 CPS = "Fast" notification
+
+Note: This demo shows notifications only. Upload your own Malayalam audio files for the full experience!
+
+Happy typing! 🎯
+`;
                 
-                zip.file("README.md", demoReadmeContent);
+                zip.file("README.md", readmeContent);
                 
                 // Generate and download
                 const content = await zip.generateAsync({type: "blob"});

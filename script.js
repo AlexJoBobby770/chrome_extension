@@ -1,3 +1,4 @@
+
 async function generateExtension() {
     console.log('Generate button clicked!');
    
@@ -6,15 +7,18 @@ async function generateExtension() {
     const audioMedium = document.getElementById('audioFileMedium').files[0];
     const audioFast = document.getElementById('audioFileFast').files[0];
     
+    // Check if inputs are valid
     if (!validateInputs(threshold, audioSlow, audioMedium, audioFast)) {
-        return; 
+        return; // Stop if validation fails
     }
-
+    
+    // Show loading state
     showLoading();
     
     try {
+        // Create the extension ZIP file
         await createExtensionZip(threshold, audioSlow, audioMedium, audioFast);
-        showSuccess('Custom Malayalam extension created! Check your downloads.');
+        showSuccess();
     } catch (error) {
         console.error('Error:', error);
         showError(error.message);
@@ -23,12 +27,15 @@ async function generateExtension() {
     }
 }
 
+// Check if all required inputs are provided
 function validateInputs(threshold, audioSlow, audioMedium, audioFast) {
+    // Check if all audio files are uploaded
     if (!audioSlow || !audioMedium || !audioFast) {
         showError('Please upload all 3 audio files!');
         return false;
     }
-  
+    
+    // Check if threshold is a valid number
     if (isNaN(threshold) || threshold <= 0) {
         showError('Please enter a valid threshold value!');
         return false;
@@ -37,6 +44,7 @@ function validateInputs(threshold, audioSlow, audioMedium, audioFast) {
     return true;
 }
 
+// Show loading state
 function showLoading() {
     const button = document.getElementById('generateBtn');
     button.disabled = true;
@@ -46,49 +54,53 @@ function showLoading() {
     statusDiv.innerHTML = '<div class="status info">📦 Creating your extension...</div>';
 }
 
+// Hide loading state
 function hideLoading() {
     const button = document.getElementById('generateBtn');
     button.disabled = false;
-    button.textContent = '🚀 Generate Custom Malayalam Extension';
+    button.textContent = '🚀 Generate Chrome Extension';
 }
 
-function showSuccess(message) {
+// Show success message
+function showSuccess() {
     const statusDiv = document.getElementById('status');
-    statusDiv.innerHTML = `<div class="status success">✅ ${message}</div>`;
+    statusDiv.innerHTML = '<div class="status success">✅ Extension created! Check your downloads.</div>';
 }
 
+// Show error message
 function showError(message) {
     const statusDiv = document.getElementById('status');
     statusDiv.innerHTML = `<div class="status error">❌ ${message}</div>`;
 }
 
+// Setup file validation when page loads
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, setting up file validation...');
     setupFileValidation();
 });
 
+// Validate uploaded files
 function setupFileValidation() {
     const fileInputs = ['audioFileSlow', 'audioFileMedium', 'audioFileFast'];
     
     fileInputs.forEach(inputId => {
         const input = document.getElementById(inputId);
-        if (input) {
-            input.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    validateAudioFile(file, this);
-                }
-            });
-        }
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                validateAudioFile(file, this);
+            }
+        });
     });
 }
 
+// Check if uploaded file is valid
 function validateAudioFile(file, inputElement) {
-    const validTypes = ['audio/mp3', 'audio/wav', 'audio/ogg', 'audio/mpeg'];
-    const maxSize = 5 * 1024 * 1024;
+    const validTypes = ['audio/mp3'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
     
     if (!validTypes.includes(file.type)) {
-        alert('Please upload a valid audio file (MP3, WAV, or OGG)');
+        alert('Please upload a valid audio file (MP3, WAV,)');
         inputElement.value = '';
         return false;
     }
