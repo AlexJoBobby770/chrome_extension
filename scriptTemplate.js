@@ -184,7 +184,7 @@ function playAudio(audioType, message, cps) {
         console.log('Attempting to play:', audioUrl);
         
         const audio = new Audio(audioUrl);
-        audio.volume = 0.8;
+        audio.volume = 1;
         
         audio.play()
             .then(() => {

@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Judge Extension Generator</title>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1> Typing Judge Extension Generator</h1>
+        <h1>Typing Judge Extension Generator</h1>
         
         <div class="form-group demo-section">
             <h3>🎮 Try Demo First!</h3>
@@ -22,7 +21,7 @@
             <small>Try the demo first to see how it detects typing everywhere, then create your custom Malayalam version below!</small>
         </div>
         
-        <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.2);">
+        <hr>
         
         <div class="form-group">
             <h3>🎵 Create Your Custom Malayalam Version</h3>
@@ -87,7 +86,6 @@
     <script src="script.js"></script>
     
     <script>
-        
         async function createDemoExtension() {
             console.log('Creating demo extension with sample audio...');
             
@@ -118,15 +116,12 @@
                     ]
                 };
                 
-                
                 const demoScript = createScriptContent(2);
-                
                 
                 zip.file("manifest.json", JSON.stringify(demoManifest, null, 2));
                 zip.file("script.js", demoScript);
                
                 const audioFolder = zip.folder("audio");
-                
                 
                 const slowAudio = await fetch('audio/slow.mp3').then(res => res.arrayBuffer());
                 const mediumAudio = await fetch('audio/medium.mp3').then(res => res.arrayBuffer());
@@ -135,42 +130,34 @@
                 audioFolder.file("slow.mp3", slowAudio);
                 audioFolder.file("medium.mp3", mediumAudio);
                 audioFolder.file("fast.mp3", fastAudio);
-
-                
                
                 const readmeContent = `# Malayalam Typing Judge - DEMO Extension
 
 ## What This Does:
-- Monitors your typing speed on ALL websites (YouTube, Gmail, WhatsApp Web, etc.)
-- Shows notifications based on speed (audio files are placeholders in this demo)
-- Detects typing in ANY editable field across the web!
+- Monitors your typing speed on ALL websites
+- Plays sounds based on your typing speed
+- Works in ANY editable field across the web!
 
 ## How to Install:
 1. Unzip this folder
 2. Open Chrome → chrome://extensions/
-3. Turn on "Developer mode" (top right)
+3. Turn on "Developer mode"
 4. Click "Load unpacked" → select this folder
-5. Start typing anywhere and watch for notifications!
+5. Start typing anywhere!
 
 ## Try It On:
 - YouTube comments
 - Gmail compose  
 - WhatsApp Web
-- Twitter/X posts
-- Discord messages
+- Twitter/X
+- Discord
 - Any text field!
 
-## Want Real Malayalam Audio?
-Use our generator website to create your own version with actual Malayalam audio files!
+## Current Threshold: 2 CPS
+- Slow (<2 CPS) = "Slow" sound
+- Fast (>4 CPS) = "Fast" sound
 
-## Current Threshold: 2 Characters Per Second
-- Type slower than 2 CPS = "Slow" notification
-- Type faster than 4 CPS = "Fast" notification
-
-Note: This demo shows notifications only. Upload your own Malayalam audio files for the full experience!
-
-Happy typing! 🎯
-`;
+Note: This demo uses beep sounds. Upload Malayalam audio for full experience!`;
                 
                 zip.file("README.md", readmeContent);
              
@@ -181,11 +168,11 @@ Happy typing! 🎯
                 link.download = 'malayalam-typing-judge-DEMO.zip';
                 link.click();
                 
-                showSuccess('Demo extension created! Install it to see how it detects typing everywhere. Then create your custom version with Malayalam audio!');
+                showSuccess('Demo extension created! Install it to test the typing detection.');
                 
             } catch (error) {
                 console.error('Error creating demo:', error);
-                showError('Failed to create demo extension: ' + error.message);
+                showError('Failed to create demo: ' + error.message);
             } finally {
                 hideLoading();
                 document.getElementById('demoBtn').disabled = false;
