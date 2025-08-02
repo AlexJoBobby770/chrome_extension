@@ -1,28 +1,26 @@
-// zipCreator.js - Handles creating the ZIP file
 
-// Main function to create the extension ZIP
 async function createExtensionZip(threshold, audioSlow, audioMedium, audioFast) {
     console.log('Creating ZIP with threshold:', threshold);
     
-    // Create a new ZIP file
+    
     const zip = new JSZip();
     
-    // Add the manifest.json file
+    
     const manifestContent = createManifestContent();
     zip.file("manifest.json", manifestContent);
     
-    // Add the content script file
+
     const scriptContent = createScriptContent(threshold);
     zip.file("script.js", scriptContent);
     
-    // Add audio files
+
     await addAudioFiles(zip, audioSlow, audioMedium, audioFast);
     
-    // Generate and download the ZIP
+  
     await downloadZip(zip);
 }
 
-// Create the manifest.json content
+
 function createManifestContent() {
     const manifest = {
         "manifest_version": 3,
@@ -44,18 +42,16 @@ function createManifestContent() {
         ]
     };
     
-    // Convert to JSON string with nice formatting
+
     return JSON.stringify(manifest, null, 2);
 }
 
-// Add audio files to the ZIP
 async function addAudioFiles(zip, audioSlow, audioMedium, audioFast) {
     console.log('Adding audio files to ZIP...');
     
-    // Create audio folder in ZIP
     const audioFolder = zip.folder("audio");
     
-    // Convert all files to MP3 naming (regardless of input format)
+    
     audioFolder.file("slow.mp3", audioSlow);
     audioFolder.file("medium.mp3", audioMedium);
     audioFolder.file("fast.mp3", audioFast);
@@ -63,28 +59,27 @@ async function addAudioFiles(zip, audioSlow, audioMedium, audioFast) {
     console.log('Audio files added with standardized MP3 names');
 }
 
-// Get file extension from filename
+
 function getFileExtension(filename) {
     return '.' + filename.split('.').pop().toLowerCase();
 }
 
-// Generate ZIP and trigger download
 async function downloadZip(zip) {
     console.log('Generating ZIP file...');
     
-    // Generate the ZIP as a blob
+  
     const zipBlob = await zip.generateAsync({
         type: "blob",
         compression: "DEFLATE",
         compressionOptions: { level: 6 }
     });
     
-    // Create download link
+  
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(zipBlob);
     downloadLink.download = 'malayalam-typing-judge-extension.zip';
     
-    // Trigger download
+   
     downloadLink.click();
     
     console.log('ZIP download triggered');

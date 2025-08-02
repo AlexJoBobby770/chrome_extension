@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malayalam Typing Judge Extension Generator</title>
     
-    <!-- Include JSZip library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- Link to CSS file -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>🎯 Malayalam Typing Judge Extension Generator</h1>
         
-        <!-- Demo Section -->
         <div class="form-group demo-section">
             <h3>🎮 Try Demo First!</h3>
             <p>Download a working demo extension with sample beep sounds to test how it works on YouTube, Gmail, WhatsApp Web, Discord, and all other websites!</p>
@@ -27,11 +24,9 @@
         
         <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.2);">
         
-        <!-- Custom Extension Section -->
         <div class="form-group">
             <h3>🎵 Create Your Custom Malayalam Version</h3>
             
-            <!-- Threshold Input Section -->
             <label>⚡ Typing Speed Threshold (Characters Per Second):</label>
             <input type="number" id="threshold" value="2" min="0.5" max="10" step="0.1">
             <div class="speed-info">
@@ -42,7 +37,6 @@
             </div>
         </div>
         
-        <!-- Audio Upload Section -->
         <div class="form-group">
             <label>🎵 Upload Your Malayalam Audio Files:</label>
             
@@ -56,15 +50,12 @@
             <input type="file" id="audioFileFast" accept=".mp3">
         </div>
         
-        <!-- Generate Button -->
         <button onclick="generateExtension()" id="generateBtn">
             🚀 Generate Custom Malayalam Extension
         </button>
         
-        <!-- Status Messages -->
         <div id="status"></div>
         
-        <!-- Installation Instructions -->
         <div class="form-group">
             <h3>📝 How to Install Extensions:</h3>
             <ol>
@@ -91,13 +82,12 @@
         </div>
     </div>
 
-    <!-- Include all JavaScript files in order -->
     <script src="scriptTemplate.js"></script>
     <script src="zipCreator.js"></script>
     <script src="script.js"></script>
     
     <script>
-        // Demo extension creation function
+        
         async function createDemoExtension() {
             console.log('Creating demo extension with sample audio...');
             
@@ -108,7 +98,6 @@
             try {
                 const zip = new JSZip();
                 
-                // Create manifest for demo
                 const demoManifest = {
                     "manifest_version": 3,
                     "name": "Malayalam Typing Judge - DEMO",
@@ -129,17 +118,16 @@
                     ]
                 };
                 
-                // Create demo script with 2 CPS threshold
+                
                 const demoScript = createScriptContent(2);
                 
-                // Add files to ZIP
+                
                 zip.file("manifest.json", JSON.stringify(demoManifest, null, 2));
                 zip.file("script.js", demoScript);
-                
-                // Create audio folder with placeholder files
+               
                 const audioFolder = zip.folder("audio");
                 
-                // Load real demo audio files and add to ZIP
+                
                 const slowAudio = await fetch('audio/slow.mp3').then(res => res.arrayBuffer());
                 const mediumAudio = await fetch('audio/medium.mp3').then(res => res.arrayBuffer());
                 const fastAudio = await fetch('audio/fast.mp3').then(res => res.arrayBuffer());
@@ -149,7 +137,7 @@
                 audioFolder.file("fast.mp3", fastAudio);
 
                 
-                // Add README file
+               
                 const readmeContent = `# Malayalam Typing Judge - DEMO Extension
 
 ## What This Does:
@@ -185,8 +173,7 @@ Happy typing! 🎯
 `;
                 
                 zip.file("README.md", readmeContent);
-                
-                // Generate and download
+             
                 const content = await zip.generateAsync({type: "blob"});
                 
                 const link = document.createElement('a');
