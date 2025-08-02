@@ -3,7 +3,7 @@
 <img width="3188" height="1202" alt="Malayalam Typing Judge Banner" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 ## Basic Details
-### Team Name: Type Chaos Creators
+### Team Name: VITAMIN D
 
 ### Team Members
 - Team Lead: [Alex Jo Bobby] - [Albertian Institute of Science and technology]
@@ -81,13 +81,13 @@ git clone [https://github.com/AlexJoBobby770/chrome_extension.git]
 
 #### Screenshots
 ![Extension Generator Interface](screenshots/generator-interface.png)
-*The web-based extension generator with MP3-only upload interface*
+
 
 ![Typing Speed Detection](screenshots/typing-notification.png)
-*Real-time typing speed notification with MP3 audio playing on YouTube*
+
 
 ![Multi-Website Support](screenshots/multi-website.png)
-*Extension working with MP3 audio across Gmail, Discord, Twitter, and WhatsApp Web*
+
 
 
 
@@ -140,14 +140,8 @@ git clone [https://github.com/AlexJoBobby770/chrome_extension.git]
 
 ### Project Demo
 #### Video Demo Features
-[Add your demo video link here - showing the complete MP3 workflow]
-*Demonstrates:*
-- Extension generator interface with MP3-only uploads
-- Demo extension creation and installation
-- Custom Malayalam MP3 extension creation
-- Real-time typing detection with MP3 audio playback
-- MP3 audio feedback system across multiple websites
-- Performance testing with different MP3 file sizes
+https://youtu.be/gw4_nCLsVpQ
+Youtube Demo 👆👆👆
 
 #### Live Demo Scenarios
 1. **Slow Typing Demo**: Show typing at 1 CPS → Malayalam roasting MP3 plays
@@ -156,9 +150,8 @@ git clone [https://github.com/AlexJoBobby770/chrome_extension.git]
 4. **Custom MP3 Demo**: Upload process and custom MP3 file integration
 
 ## Team Contributions
-- **[Name 1]**: Frontend development, MP3 audio integration, Chrome extension architecture, audio validation system
-- **[Name 2]**: Typing detection algorithms, cross-website compatibility, MP3 performance optimization, testing framework
-- **[Name 3]**: ZIP generation system, MP3 file handling, error management, documentation, deployment optimization
+- **[Harigovind kr]**: Frontend development, MP3 audio integration, Chrome extension architecture, audio validation system
+- **[Alex Jo Bobby]**: Typing detection algorithms, cross-website compatibility, MP3 performance optimization, testing framework, ZIP generation system, MP3 file handling, error management, documentation, deployment optimization
 
 ## Why This Project is Perfectly Useless Yet Brilliant
 
