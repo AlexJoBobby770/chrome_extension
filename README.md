@@ -34,8 +34,7 @@ For Software:
 - **Frameworks:** Vanilla JavaScript (because sometimes less is more)
 - **Tools:** Chrome Developer Tools, Content Script Injection
 
-### Implementation
-For Software:
+
 
 #### Installation & Setup
 ```bash
@@ -140,8 +139,7 @@ git clone [https://github.com/AlexJoBobby770/chrome_extension.git]
 
 ### Project Demo
 #### Video Demo Features
-https://youtu.be/gw4_nCLsVpQ
-Youtube Demo 👆👆👆
+👉 [Watch the YouTube Demo](https://youtu.be/gw4_nCLsVpQ)
 
 #### Live Demo Scenarios
 1. **Slow Typing Demo**: Show typing at 1 CPS → Malayalam roasting MP3 plays
