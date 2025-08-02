@@ -1,4 +1,3 @@
-
 async function generateExtension() {
     console.log('Generate button clicked!');
    
@@ -7,7 +6,6 @@ async function generateExtension() {
     const audioMedium = document.getElementById('audioFileMedium').files[0];
     const audioFast = document.getElementById('audioFileFast').files[0];
     
-    
     if (!validateInputs(threshold, audioSlow, audioMedium, audioFast)) {
         return; 
     }
@@ -15,9 +13,8 @@ async function generateExtension() {
     showLoading();
     
     try {
-    
         await createExtensionZip(threshold, audioSlow, audioMedium, audioFast);
-        showSuccess();
+        showSuccess('Custom Malayalam extension created! Check your downloads.');
     } catch (error) {
         console.error('Error:', error);
         showError(error.message);
@@ -26,9 +23,7 @@ async function generateExtension() {
     }
 }
 
-
 function validateInputs(threshold, audioSlow, audioMedium, audioFast) {
-   
     if (!audioSlow || !audioMedium || !audioFast) {
         showError('Please upload all 3 audio files!');
         return false;
@@ -54,13 +49,12 @@ function showLoading() {
 function hideLoading() {
     const button = document.getElementById('generateBtn');
     button.disabled = false;
-    button.textContent = '🚀 Generate Chrome Extension';
+    button.textContent = '🚀 Generate Custom Malayalam Extension';
 }
 
-
-function showSuccess() {
+function showSuccess(message) {
     const statusDiv = document.getElementById('status');
-    statusDiv.innerHTML = '<div class="status success">✅ Extension created! Check your downloads.</div>';
+    statusDiv.innerHTML = `<div class="status success">✅ ${message}</div>`;
 }
 
 function showError(message) {
@@ -73,27 +67,28 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFileValidation();
 });
 
-
 function setupFileValidation() {
     const fileInputs = ['audioFileSlow', 'audioFileMedium', 'audioFileFast'];
     
     fileInputs.forEach(inputId => {
         const input = document.getElementById(inputId);
-        input.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                validateAudioFile(file, this);
-            }
-        });
+        if (input) {
+            input.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    validateAudioFile(file, this);
+                }
+            });
+        }
     });
 }
 
 function validateAudioFile(file, inputElement) {
-    const validTypes = ['audio/mp3'];
-    const maxSize = 5 * 1024 * 1024; 
+    const validTypes = ['audio/mp3', 'audio/wav', 'audio/ogg', 'audio/mpeg'];
+    const maxSize = 5 * 1024 * 1024;
     
     if (!validTypes.includes(file.type)) {
-        alert('Please upload a valid audio file (MP3)');
+        alert('Please upload a valid audio file (MP3, WAV, or OGG)');
         inputElement.value = '';
         return false;
     }

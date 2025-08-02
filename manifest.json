@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Malayalam Typing Judge",
   "version": "1.0",
-  "description": "Plays Malayalam audio based on typing speed",
+  "description": "Plays Malayalam audio based on typing speed - Works on ALL websites!",
   "permissions": [],
   "content_scripts": [
     {
@@ -12,8 +12,8 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["audio/*.mp3"],
+      "resources": ["audio/*"],
       "matches": ["<all_urls>"]
     }
   ]
-} 
+}
