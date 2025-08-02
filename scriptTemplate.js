@@ -146,28 +146,25 @@ function isEditableElement(element) {
 function checkTypingSpeed(cps) {
     const currentTime = Date.now();
     
-    // Don't play audio too frequently (cooldown)
+    // Cooldown: avoid playing too frequently
     if (currentTime - lastAudioTime < COOLDOWN_TIME) {
         return;
     }
-    
-    console.log('Current typing speed:', cps.toFixed(2), 'CPS');
-    
-    // Determine which audio to play
+
     let audioType = '';
     let message = '';
-    
-    if (cps < THRESHOLD) {
+
+    if (cps < 5) {
         audioType = 'slow';
         message = '🐌 Slow typing detected!';
-    } else if (cps < THRESHOLD * 2) {
+    } else if (cps >= 5 && cps <= 7) {
         audioType = 'medium';
-        message = '⚖️ Average typing speed';
+        message = '⚖️ Medium typing speed';
     } else {
         audioType = 'fast';
         message = '🚀 Fast typing!';
     }
-    
+
     playAudio(audioType, message, cps);
     lastAudioTime = currentTime;
 }

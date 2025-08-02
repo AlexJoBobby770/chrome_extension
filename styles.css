@@ -245,6 +245,7 @@ ol li:before {
     margin-left: -1.5em;
 }
 
+
 @media (max-width: 768px) {
     body {
         padding: 20px;
